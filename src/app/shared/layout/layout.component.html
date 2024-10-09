@@ -1,0 +1,28 @@
+<div class="header-nav container-fluid">
+  <div class="row">
+    <app-header-nav-bar (expand)="isExpanded = $event"></app-header-nav-bar>
+  </div>
+</div>
+
+<div class="page-body container-fluid">
+  <div class="row h-100 flex-nowrap">
+    <app-sidebar
+      [isExpanded]="isExpanded"
+      [ngClass]="{
+        'd-none': !isExpanded,
+        'col col-sm-12': isExpanded
+      }"
+      class="d-xl-block p-0 sidebar h-100"
+    ></app-sidebar>
+
+    <div
+      [ngClass]="{
+        'col': !isExpanded,
+        'd-none': isExpanded
+      }"
+      class="col-sm d-sm-block page"
+    >
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+.header-nav {
+  background-color: #da2032;
+  height: 70px;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.sidebar {
+  width: 263px;
+}
+
+.page {
+  background: #F5F6F7;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.page-body {
+  flex: 1 1 auto;
+}

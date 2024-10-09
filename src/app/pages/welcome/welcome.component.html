@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="row align-items-center justify-content-center">
+    <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+      <div class="form-wrapper my-4 p-3 form-group">
+        <form [formGroup]="form" (ngSubmit)="login()" class="form-inline">
+          <label class="sr-only" for="login">Login</label>
+          <div class="input-group mb-2 mr-sm-2">
+            <input
+              class="m-2 form-control"
+              [class]="
+                form.get('login')?.valid && form.get('login')?.touched
+                  ? 'is-valid'
+                  : 'is-invalid'
+              "
+              placeholder="input login"
+              formControlName="login"
+              id="login"
+              type="text"
+            />
+          </div>
+
+          <label for="password" class="sr-only">Password</label>
+          <div class="input-group mb-2 mr-sm-2">
+            <input
+              class="m-2 form-control"
+              [class]="
+                form.get('pass')?.valid && form.get('pass')?.touched
+                  ? 'is-valid'
+                  : 'is-invalid'
+              "
+              formControlName="pass"
+              placeholder="input password"
+              id="password"
+              type="password"
+            />
+          </div>
+          <button type="submit" class="btn btn-primary mb-2">Войти</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

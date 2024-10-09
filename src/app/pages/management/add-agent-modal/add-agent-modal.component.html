@@ -1,0 +1,72 @@
+<div class="container">
+  <div class="row align-items-center justify-content-center">
+    <div class="col-6">
+      <h3 class="py-2">Создать нового агента</h3>
+      <div class="form-wrapper my-4 p-3">
+        <form [formGroup]="form" (ngSubmit)="createAgent()">
+          <div class="input-group mb-2 mr-sm-2">
+            <label class="sr-only" for="login">Login</label>
+            <input
+              class="m-2 form-control"
+              formControlName="login"
+              id="login"
+              type="text"
+            />
+          </div>
+
+          <div class="input-group mb-2 mr-sm-2">
+            <label class="sr-only" for="phone">Phone</label>
+            <input
+              class="m-2 form-control"
+              formControlName="phone"
+              id="phone"
+              type="text"
+            />
+          </div>
+
+          <div class="input-group mb-2 mr-sm-2">
+            <label class="sr-only" for="eMail">eMail</label>
+            <input
+              class="m-2 form-control"
+              formControlName="eMail"
+              id="eMail"
+              type="text"
+            />
+          </div>
+
+          <div class="input-group mb-2 mr-sm-2">
+            <label class="sr-only" for="role">role</label>
+            <input
+              class="m-2 form-control"
+              formControlName="role"
+              id="role"
+              type="text"
+            />
+          </div>
+
+          <div class="input-group mb-2 mr-sm-2">
+            <label class="sr-only" for="status">status</label>
+            <input
+              class="m-2 form-control"
+              formControlName="status"
+              id="status"
+              type="text"
+            />
+          </div>
+
+          <div class="input-group mb-2 mr-sm-2">
+            <label class="sr-only" for="isHaveEP">isHaveEP</label>
+            <input
+              class="m-2 form-control"
+              formControlName="isHaveEP"
+              id="isHaveEP"
+              type="text"
+            />
+          </div>
+
+          <button type="submit" class="btn btn-primary mb-2">Создать</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

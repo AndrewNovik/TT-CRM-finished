@@ -1,0 +1,40 @@
+<div class="d-flex justify-content-end">
+  <div class="current-user-block p-2">
+    <ng-container *ngIf="isLoggedIn">
+      <div
+        *ngIf="isLoggedIn"
+        ngbDropdown
+        class="d-inline-block d-none d-xl-block"
+      >
+        <i-bs name="person-circle" class="p-1"></i-bs>
+        <button
+          type="button"
+          class="btn user-name ms-2"
+          id="dropdownBasic1"
+          ngbDropdownToggle
+        >
+          <ng-container>
+            <span style="font-size: 0.9em">
+              {{ userName }}
+            </span>
+            <br />
+            <span>
+              {{ userRole }}
+            </span>
+          </ng-container>
+        </button>
+        <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+          <button (click)="logout()" ngbDropdownItem>Выйти</button>
+        </div>
+      </div>
+
+      <button
+        class="d-block d-xl-none btn"
+        type="button"
+        (click)="expandToggle()"
+      >
+        <i class="bi {{ isExpanded ? 'bi-x-lg' : 'bi-list' }}"></i>
+      </button>
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="d-xl-flex flex-column px-3 pt-2 text-white sidebar-wrapper h-100">
+  <ul class="nav nav-pills flex-column mb-sm-auto mb-0">
+    <li *ngIf="isLoggedIn" ngbDropdown class="nav-item d-xl-none py-1">
+      <button
+        type="button"
+        class="btn user-name text-start px-0 w-100"
+        id="dropdownBasic1"
+        ngbDropdownToggle
+      >
+        <i class="bi bi-person-lines-fill me-1"></i>
+        <span class="user-name">
+          {{ userName }}
+        </span>
+      </button>
+      <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+        <button (click)="logout()" ngbDropdownItem>Выйти</button>
+      </div>
+    </li>
+    <li class="nav-item py-1">
+      <a class="nav-link align-middle px-0" href="#" role="button">
+        <i class="bi bi-person-raised-hand"></i>
+        <span class="ms-3">Администрирование</span>
+      </a>
+    </li>
+    <li class="nav-item py-1">
+      <a class="nav-link align-middle px-0" href="#" role="button">
+        <span>СуперАгент <span class="f-300">Банк ВТБ(ПАО)</span> </span>
+        <i
+          class="bi bi-caret-down-fill justify-content-end drop-down-arrow py-1 pe-2"
+        ></i>
+      </a>
+    </li>
+    <li class="nav-item py-1">
+      <a
+        class="nav-link align-middle px-0"
+        href="#"
+        role="button"
+        routerLink="/management"
+        ><i-bs name="briefcase-fill"></i-bs>
+        <span class="ms-3">Управление</span>
+      </a>
+    </li>
+    <li class="nav-item nav-item-end py-1">
+      <a
+        class="nav-link align-middle px-0"
+        href="#"
+        role="button"
+        routerLink="/subagents"
+        ><i-bs name="people-fill"></i-bs>
+        <span class="ms-3">Субагенты</span>
+      </a>
+    </li>
+  </ul>
+</div>

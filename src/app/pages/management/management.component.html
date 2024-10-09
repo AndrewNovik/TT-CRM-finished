@@ -1,0 +1,423 @@
+<div class="m-2">
+  <button class="btn border-0 p-0" (click)="back()">
+    <span class="d-inline-flex back my-4"
+      ><i class="bi bi-chevron-left me-2"></i>Назад</span
+    >
+  </button>
+  <div class="header-title">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="setting-header mb-3">
+          Настройка учетных записей сотрудников контрагента
+        </h3>
+      </div>
+      <div class="col-lg-8 d-none d-sm-block mb-3">
+        <button class="btn px-3 me-4 header-button my-1" (click)="addAgent()">
+          Добавить
+          <i-bs name="plus-circle"></i-bs>
+        </button>
+        <button
+          [disabled]="!checkedAgentsList.length"
+          (click)="enableAgents()"
+          class="btn px-3 me-4 header-button my-1"
+        >
+          Разблокировать
+          <i-bs name="check-circle"></i-bs>
+        </button>
+        <button
+          (click)="disableAgents()"
+          [disabled]="!checkedAgentsList.length"
+          class="btn px-3 me-4 header-button my-1"
+        >
+          Заблокировать
+          <i-bs name="x-circle"></i-bs>
+        </button>
+      </div>
+      <div class="col-lg-2 offset-lg-2 text-lg-end d-none d-sm-block mb-3">
+        <button
+          class="btn btn-outline-secondary px-3 py-2 filter my-1"
+          (click)="accordion.toggle('first')"
+        >
+          Фильтр <i-bs name="filter"></i-bs>
+        </button>
+      </div>
+      <div class="col-12 d-flex flex-wrap d-sm-none">
+        <div class="col-6 py-1 px-2">
+          <button
+            class="btn px-3 py-1 header-button w-100"
+            (click)="addAgent()"
+          >
+            Добавить
+            <i-bs name="plus-circle"></i-bs>
+          </button>
+        </div>
+        <div class="col-6 py-1 px-2">
+          <button
+            [disabled]="!checkedAgentsList.length"
+            (click)="enableAgents()"
+            class="btn px-3 header-button w-100"
+          >
+            Разблокировать
+            <i-bs name="check-circle"></i-bs>
+          </button>
+        </div>
+        <div class="col-6 py-1 px-2">
+          <button
+            (click)="disableAgents()"
+            [disabled]="!checkedAgentsList.length"
+            class="btn px-3 header-button w-100"
+          >
+            Заблокировать
+            <i-bs name="x-circle"></i-bs>
+          </button>
+        </div>
+      </div>
+      <div class="col-12 text-lg-end d-block d-sm-none mb-3">
+        <div class="col-6 py-1 px-2">
+          <button
+            class="btn btn-outline-secondary px-3 py-1 filter w-100"
+            (click)="accordion.toggle('first')"
+          >
+            Фильтр <i-bs name="filter"></i-bs>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="management-filters mb-3 mt-3">
+    <div ngbAccordion #accordion="ngbAccordion">
+      <div ngbAccordionItem="first" class="border-0">
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody class="p-0">
+            <ng-template>
+              <div class="filters-form p-3 border border-light col-12">
+                <h3 class="filters-header">Фильтр</h3>
+                <form [formGroup]="form" *ngIf="form" (ngSubmit)="onFilter()">
+                  <div class="form-row row">
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                      <label>Логин</label>
+                      <input
+                        [class]="
+                          form.get([ManagementFormKey.login])?.invalid
+                            ? 'is-invalid'
+                            : ''
+                        "
+                        [formControlName]="ManagementFormKey.login"
+                        class="form-control form-control-sm my-1"
+                        type="text"
+                        [placeholder]="'Все'"
+                        aria-label="login"
+                      />
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                      <label>Телефон</label>
+                      <input
+                        [class]="
+                          form.get([ManagementFormKey.phoneNumber])?.invalid
+                            ? 'is-invalid'
+                            : ''
+                        "
+                        [formControlName]="ManagementFormKey.phoneNumber"
+                        class="form-control form-control-sm my-1"
+                        type="text"
+                        [placeholder]="'+7 (800)-888-88-88'"
+                        aria-label="phone"
+                      />
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                      <label>Дата создания</label>
+                      <div class="d-flex">
+                        <input
+                          [formControlName]="ManagementFormKey.creationDate"
+                          class="form-control form-control-sm my-1"
+                          placeholder="yyyy-mm-dd"
+                          name="dp"
+                          ngbDatepicker
+                          #creationDate="ngbDatepicker"
+                          aria-label="creation date"
+                        />
+                        <button
+                          class="btn btn-outline-secondary bi bi-calendar3 my-1"
+                          (click)="creationDate.toggle()"
+                          type="button"
+                        ></button>
+                      </div>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                      <label>Статус</label>
+                      <select
+                        [formControlName]="ManagementFormKey.status"
+                        class="form-control form-control-sm my-1"
+                        aria-label="status"
+                      >
+                        <option value="" selected>Все статусы</option>
+                        <option
+                          *ngFor="let status of statuses"
+                          [value]="status"
+                        >
+                          {{ status }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                      <label>E-mail</label>
+                      <input
+                        [class]="
+                          form.get([ManagementFormKey.eMail])?.invalid
+                            ? 'is-invalid'
+                            : ''
+                        "
+                        [formControlName]="ManagementFormKey.eMail"
+                        class="form-control form-control-sm my-1"
+                        type="text"
+                        [placeholder]="'Все'"
+                        aria-label="eMail"
+                      />
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                      <label>Роль</label>
+                      <select
+                        [formControlName]="ManagementFormKey.role"
+                        class="form-control form-control-sm my-1"
+                        aria-label="role"
+                      >
+                        <option value="" selected>Все роли</option>
+                        <option *ngFor="let role of roles" [value]="role">
+                          {{ role }}
+                        </option>
+                      </select>
+                    </div>
+
+                    <div class="col-md-3 col-sm-6 col-xs-6">
+                      <label>Дата изменения</label>
+                      <div class="d-flex">
+                        <input
+                          [formControlName]="ManagementFormKey.editionDate"
+                          class="form-control form-control-sm my-1"
+                          placeholder="yyyy-mm-dd"
+                          name="dp"
+                          ngbDatepicker
+                          #editionDate="ngbDatepicker"
+                          aria-label="edition date"
+                        />
+                        <button
+                          class="btn btn-outline-secondary bi bi-calendar3 my-1"
+                          (click)="editionDate.toggle()"
+                          type="button"
+                        ></button>
+                      </div>
+                    </div>
+                    <div
+                      class="flex-column flex-md-row d-flex align-items-center filter-buttons"
+                    >
+                      <button
+                        type="submit"
+                        class="btn px-2 bg-danger submit-button my-1 me-3"
+                      >
+                        Применить
+                      </button>
+
+                      <button
+                        (click)="onCancel()"
+                        type="button"
+                        class="btn btn-outline-secondary px-2 filter my-1 me-3"
+                      >
+                        Отмена
+                      </button>
+
+                      <button
+                        (click)="onReset()"
+                        type="button"
+                        class="btn btn-outline-secondary px-2 filter my-1 me-3"
+                      >
+                        Сбросить
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-responsive">
+    <ng-container *ngIf="showLoader$ | async; else elseBlock"
+      ><span class="ms-3">Loading...</span></ng-container
+    >
+    <ng-template #elseBlock>
+      <ng-container [ngTemplateOutlet]="pageSizeAndInformation"></ng-container>
+
+      <table
+        class="table table-sm table-hover table-vertical-middle text-center p-3 d-none d-lg-table"
+      >
+        <thead>
+          <tr>
+            <th scope="col">Действия</th>
+            <th scope="col">
+              <input
+                #chechboxAll
+                type="checkbox"
+                [(ngModel)]="isCheckedAllAgents"
+                (change)="changeCheckBoxAllItems()"
+              />
+            </th>
+            <th scope="col">Логин</th>
+            <th scope="col">E-mail</th>
+            <th scope="col">Телефон</th>
+            <th scope="col">Роли</th>
+            <th scope="col">Дата изменения</th>
+            <th scope="col">Дата создания</th>
+            <th scope="col">Статус</th>
+            <th class="text-end" scope="col">Наличие ЭП</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of sortedListToShow">
+            <th scope="col"><i class="bi bi-three-dots"></i></th>
+            <th scope="col">
+              <input
+                #chechbox
+                type="checkbox"
+                (change)="changeCheckBoxTableItem($event, item.id)"
+              />
+            </th>
+            <th scope="col">{{ item.login }}</th>
+            <th scope="col">{{ item.email }}</th>
+            <th scope="col">{{ item.phoneNumber }}</th>
+            <th scope="col">{{ item.role }}</th>
+            <th scope="col">{{ item.editDate | date : "dd.MM.yyyy" }}</th>
+            <th scope="col">{{ item.creationDate | date : "dd.MM.yyyy" }}</th>
+            <th
+              scope="col"
+              [class.active]="item.status === Statuses.active"
+              [class.disabled]="item.status !== Statuses.active"
+            >
+              {{ item.status }}
+            </th>
+            <th
+              scope="col"
+              [class.active]="item.isHaveEP"
+              [class.disabled]="!item.isHaveEP"
+            >
+              <i-bs
+                [name]="item.isHaveEP ? 'check-circle-fill' : 'x-circle-fill'"
+              >
+              </i-bs>
+            </th>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="d-flex flex-wrap d-lg-none my-3 custom-table">
+        <div
+          *ngFor="let item of sortedListToShow"
+          class="d-flex flex-wrap col-12 custom-table-item mb-2"
+        >
+          <div class="d-flex justify-content-between col-12 col-md-6">
+            <span class="col-6 my-3 ps-4">Действия</span>
+            <span class="col-6 my-3"><i class="bi bi-three-dots"></i></span>
+          </div>
+          <div class="d-flex justify-content-between col-12 col-md-6">
+            <span class="col-6 my-3 ps-4">
+              <input
+                class="me-2"
+                #chechboxAll
+                type="checkbox"
+                [(ngModel)]="isCheckedAllAgents"
+                (change)="changeCheckBoxAllItems()"
+              />Логин</span
+            >
+            <span class="col-6 my-3"
+              ><input
+                class="me-2"
+                #chechbox
+                type="checkbox"
+                (change)="changeCheckBoxTableItem($event, item.id)"
+              />{{ item.login }}</span
+            >
+          </div>
+          <div class="d-flex justify-content-between col-12 col-md-6">
+            <span class="col-6 my-3 ps-4">E-mail</span>
+            <span class="col-6 my-3">{{ item.email }}</span>
+          </div>
+          <div class="d-flex justify-content-between col-12 col-md-6">
+            <span class="col-6 my-3 ps-4">Телефон</span>
+            <span class="col-6 my-3">{{ item.phoneNumber }}</span>
+          </div>
+          <div class="d-flex justify-content-between col-12 col-md-6">
+            <span class="col-6 my-3 ps-4">Роль</span>
+            <span class="col-6 my-3">{{ item.role }}</span>
+          </div>
+          <div class="d-flex justify-content-between col-12 col-md-6">
+            <span class="col-6 my-3 ps-4">Дата изменения</span>
+            <span class="col-6 my-3">{{ item.editDate }}</span>
+          </div>
+          <div class="d-flex justify-content-between col-12 col-md-6">
+            <span class="col-6 my-3 ps-4">Дата создания</span>
+            <span class="col-6 my-3">{{ item.creationDate }}</span>
+          </div>
+          <div class="d-flex justify-content-between col-12 col-md-6">
+            <span class="col-6 my-3 ps-4">Статус</span>
+            <span
+              class="col-6 my-3"
+              [ngClass]="
+                item.status === Statuses.active ? 'active' : 'disabled'
+              "
+              >{{ item.status }}</span
+            >
+          </div>
+          <div class="d-flex justify-content-between col-12 col-md-6">
+            <span class="col-6 my-3 ps-4">Наличие ЭП</span>
+            <span class="col-6 my-3"
+              ><i-bs
+                [ngClass]="item.isHaveEP ? 'active' : 'disabled'"
+                [name]="item.isHaveEP ? 'check-circle-fill' : 'x-circle-fill'"
+              ></i-bs
+            ></span>
+          </div>
+        </div>
+      </div>
+
+      <ng-container [ngTemplateOutlet]="pageSizeAndInformation"></ng-container>
+    </ng-template>
+  </div>
+</div>
+
+<ng-template #pageSizeAndInformation>
+  <div class="d-flex flex-wrap justify-content-start p-3">
+    <div class="col-md-3 offset-1 col-sm-11 show-before-county">
+      <span>Отображать </span>
+      <select
+        class="custom-select custom-select-sm mx-2"
+        [(ngModel)]="pageSize"
+        (ngModelChange)="onChangePageSizing(pageSize)"
+      >
+        <option *ngFor="let size of sizes" [ngValue]="size">
+          {{ size }}
+        </option>
+      </select>
+      <span>записей</span>
+    </div>
+    <div class="col-md-1 col-sm-12 col-xs-12 county">
+      <span
+        >{{ (page - 1) * pageSize + 1 }}-{{
+          (page - 1) * pageSize + sortedListToShow.length
+        }}
+        из {{ collectionSize }}
+      </span>
+    </div>
+    <div class="col-md-4 col-sm-12 col-xs-12 selected-county">
+      <span
+        >Количество выбранных записей: {{ checkedAgentsList.length || 0 }}</span
+      >
+    </div>
+  </div>
+</ng-template>

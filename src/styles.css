@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "moscowsans";
+  font-style: normal;
+  font-weight: 400;
+  src: url("assets/fonts/moscow-sans-regular.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 400;
+  src: url("assets/fonts/Montserrat-VariableFont_wght.ttf") format("truetype");
+}
+
+html,
+body {
+  font-family: "Montserrat" !important;
+}

@@ -1,0 +1,23 @@
+.user-name {
+  color: white;
+  text-align: left;
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: left;
+}
+
+.current-user-block {
+  color: white;
+
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18px;
+  text-align: left;
+}
+
+.btn:not(.user-name) {
+  font-size: 30px;
+  color: white;
+}

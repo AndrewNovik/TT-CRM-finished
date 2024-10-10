@@ -12,14 +12,17 @@
         </h3>
       </div>
       <div class="col-lg-8 d-none d-sm-block mb-3">
-        <button class="btn px-3 me-4 header-button my-1" (click)="addAgent()">
+        <button
+          class="btn px-3 me-4 header-button my-1 text-nowrap"
+          (click)="addAgent()"
+        >
           Добавить
           <i-bs name="plus-circle"></i-bs>
         </button>
         <button
           [disabled]="!checkedAgentsList.length"
           (click)="enableAgents()"
-          class="btn px-3 me-4 header-button my-1"
+          class="btn px-3 me-4 header-button my-1 text-nowrap"
         >
           Разблокировать
           <i-bs name="check-circle"></i-bs>
@@ -27,7 +30,7 @@
         <button
           (click)="disableAgents()"
           [disabled]="!checkedAgentsList.length"
-          class="btn px-3 me-4 header-button my-1"
+          class="btn px-3 me-4 header-button my-1 text-nowrap"
         >
           Заблокировать
           <i-bs name="x-circle"></i-bs>
@@ -44,31 +47,31 @@
       <div class="col-12 d-flex flex-wrap d-sm-none">
         <div class="col-6 py-1 px-2">
           <button
-            class="btn px-3 py-1 header-button w-100"
+            class="btn px-3 py-1 header-button w-100 text-nowrap"
             (click)="addAgent()"
           >
             Добавить
-            <i-bs name="plus-circle"></i-bs>
+            <i-bs name="plus-circle" class="d-none d-sm-block"></i-bs>
           </button>
         </div>
         <div class="col-6 py-1 px-2">
           <button
             [disabled]="!checkedAgentsList.length"
             (click)="enableAgents()"
-            class="btn px-3 header-button w-100"
+            class="btn px-3 header-button w-100 text-nowrap"
           >
             Разблокировать
-            <i-bs name="check-circle"></i-bs>
+            <i-bs name="check-circle" class="d-none d-sm-block"></i-bs>
           </button>
         </div>
         <div class="col-6 py-1 px-2">
           <button
             (click)="disableAgents()"
             [disabled]="!checkedAgentsList.length"
-            class="btn px-3 header-button w-100"
+            class="btn px-3 header-button w-100 text-nowrap"
           >
             Заблокировать
-            <i-bs name="x-circle"></i-bs>
+            <i-bs name="x-circle" class="d-none d-sm-block"></i-bs>
           </button>
         </div>
       </div>
@@ -95,11 +98,18 @@
                 <form [formGroup]="form" *ngIf="form" (ngSubmit)="onFilter()">
                   <div class="form-row row">
                     <div class="col-md-3 col-sm-6 col-xs-6">
-                      <label>Логин</label>
+                      <label
+                        [ngClass]="
+                          form.get([ManagementFormKey.login])?.invalid
+                            ? 'disabled'
+                            : ''
+                        "
+                        >Логин</label
+                      >
                       <input
                         [class]="
                           form.get([ManagementFormKey.login])?.invalid
-                            ? 'is-invalid'
+                            ? 'disabled is-invalid'
                             : ''
                         "
                         [formControlName]="ManagementFormKey.login"
@@ -108,14 +118,27 @@
                         [placeholder]="'Все'"
                         aria-label="login"
                       />
+                      <div
+                        *ngIf="form.get([ManagementFormKey.login])?.invalid"
+                        class="invalid-feedback"
+                      >
+                        Введите минимум 2 символа
+                      </div>
                     </div>
 
                     <div class="col-md-3 col-sm-6 col-xs-6">
-                      <label>Телефон</label>
+                      <label
+                        [ngClass]="
+                          form.get([ManagementFormKey.phoneNumber])?.invalid
+                            ? 'disabled'
+                            : ''
+                        "
+                        >Телефон</label
+                      >
                       <input
                         [class]="
                           form.get([ManagementFormKey.phoneNumber])?.invalid
-                            ? 'is-invalid'
+                            ? 'disabled is-invalid'
                             : ''
                         "
                         [formControlName]="ManagementFormKey.phoneNumber"
@@ -124,6 +147,14 @@
                         [placeholder]="'+7 (800)-888-88-88'"
                         aria-label="phone"
                       />
+                      <div
+                        *ngIf="
+                          form.get([ManagementFormKey.phoneNumber])?.invalid
+                        "
+                        class="invalid-feedback"
+                      >
+                        Введите минимум 2 символа
+                      </div>
                     </div>
 
                     <div class="col-md-3 col-sm-6 col-xs-6">
@@ -131,18 +162,13 @@
                       <div class="d-flex">
                         <input
                           [formControlName]="ManagementFormKey.creationDate"
-                          class="form-control form-control-sm my-1"
-                          placeholder="yyyy-mm-dd"
+                          class="form-control form-control-sm my-1 date-picker"
                           name="dp"
                           ngbDatepicker
                           #creationDate="ngbDatepicker"
                           aria-label="creation date"
-                        />
-                        <button
-                          class="btn btn-outline-secondary bi bi-calendar3 my-1"
                           (click)="creationDate.toggle()"
-                          type="button"
-                        ></button>
+                        />
                       </div>
                     </div>
 
@@ -164,11 +190,18 @@
                     </div>
 
                     <div class="col-md-3 col-sm-6 col-xs-6">
-                      <label>E-mail</label>
+                      <label
+                        [ngClass]="
+                          form.get([ManagementFormKey.eMail])?.invalid
+                            ? 'disabled'
+                            : ''
+                        "
+                        >E-mail</label
+                      >
                       <input
                         [class]="
                           form.get([ManagementFormKey.eMail])?.invalid
-                            ? 'is-invalid'
+                            ? 'disabled is-invalid'
                             : ''
                         "
                         [formControlName]="ManagementFormKey.eMail"
@@ -177,6 +210,12 @@
                         [placeholder]="'Все'"
                         aria-label="eMail"
                       />
+                      <div
+                        *ngIf="form.get([ManagementFormKey.eMail])?.invalid"
+                        class="invalid-feedback"
+                      >
+                        Недопустимые символы
+                      </div>
                     </div>
 
                     <div class="col-md-3 col-sm-6 col-xs-6">
@@ -198,18 +237,13 @@
                       <div class="d-flex">
                         <input
                           [formControlName]="ManagementFormKey.editionDate"
-                          class="form-control form-control-sm my-1"
-                          placeholder="yyyy-mm-dd"
+                          class="form-control form-control-sm my-1 date-picker"
                           name="dp"
                           ngbDatepicker
                           #editionDate="ngbDatepicker"
                           aria-label="edition date"
-                        />
-                        <button
-                          class="btn btn-outline-secondary bi bi-calendar3 my-1"
                           (click)="editionDate.toggle()"
-                          type="button"
-                        ></button>
+                        />
                       </div>
                     </div>
                     <div
@@ -262,12 +296,16 @@
           <tr>
             <th scope="col">Действия</th>
             <th scope="col">
-              <input
-                #chechboxAll
-                type="checkbox"
-                [(ngModel)]="isCheckedAllAgents"
-                (change)="changeCheckBoxAllItems()"
-              />
+              <label>
+                <input
+                  #chechboxAll
+                  type="checkbox"
+                  class="checkbox"
+                  [(ngModel)]="isCheckedAllAgents"
+                  (change)="changeCheckBoxAllItems()"
+                />
+                <span class="checkbox"></span>
+              </label>
             </th>
             <th scope="col">Логин</th>
             <th scope="col">E-mail</th>
@@ -286,6 +324,7 @@
               <input
                 #chechbox
                 type="checkbox"
+                class="checkbox"
                 (change)="changeCheckBoxTableItem($event, item.id)"
               />
             </th>
@@ -331,6 +370,7 @@
                 class="me-2"
                 #chechboxAll
                 type="checkbox"
+                class="checkbox"
                 [(ngModel)]="isCheckedAllAgents"
                 (change)="changeCheckBoxAllItems()"
               />Логин</span
@@ -340,6 +380,7 @@
                 class="me-2"
                 #chechbox
                 type="checkbox"
+                class="checkbox"
                 (change)="changeCheckBoxTableItem($event, item.id)"
               />{{ item.login }}</span
             >
@@ -392,21 +433,22 @@
 </div>
 
 <ng-template #pageSizeAndInformation>
-  <div class="d-flex flex-wrap justify-content-start p-3">
-    <div class="col-md-3 offset-1 col-sm-11 show-before-county">
+  <div class="d-flex flex-wrap justify-content-start p-3 align-items-center">
+    <div class="show-before-county ps-4 col-12 col-sm-6 col-md-4">
       <span>Отображать </span>
-      <select
-        class="custom-select custom-select-sm mx-2"
-        [(ngModel)]="pageSize"
-        (ngModelChange)="onChangePageSizing(pageSize)"
-      >
-        <option *ngFor="let size of sizes" [ngValue]="size">
-          {{ size }}
-        </option>
-      </select>
+      <div class="custom-select custom-select-sm mx-2 d-inline-block">
+        <select
+          [(ngModel)]="pageSize"
+          (ngModelChange)="onChangePageSizing(pageSize)"
+        >
+          <option *ngFor="let size of sizes" [ngValue]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
       <span>записей</span>
     </div>
-    <div class="col-md-1 col-sm-12 col-xs-12 county">
+    <div class="county ps-4 col-12 col-sm-6 col-md-2">
       <span
         >{{ (page - 1) * pageSize + 1 }}-{{
           (page - 1) * pageSize + sortedListToShow.length
@@ -414,7 +456,7 @@
         из {{ collectionSize }}
       </span>
     </div>
-    <div class="col-md-4 col-sm-12 col-xs-12 selected-county">
+    <div class="selected-county ps-4 col-12 col-sm-12 col-md-6 mt-2 mt-md-0">
       <span
         >Количество выбранных записей: {{ checkedAgentsList.length || 0 }}</span
       >

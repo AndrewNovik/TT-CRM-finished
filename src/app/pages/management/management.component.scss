@@ -54,7 +54,6 @@ ngb-pagination ::ng-deep ul > li.active > a {
   font-size: 14px;
   font-weight: 300;
   line-height: 18px;
-  text-align: left;
   color: #282828;
 }
 
@@ -69,7 +68,6 @@ ngb-pagination ::ng-deep ul > li.active > a {
   font-size: 14px;
   font-weight: 300;
   line-height: 18px;
-  text-align: center;
   color: #666f78;
 }
 
@@ -143,4 +141,59 @@ label {
 .filters-form {
   border-radius: 8px 0px 0px 0px;
   box-shadow: 0px 4px 10px 0px #0000000d;
+}
+
+.custom-select > select {
+  // background: #fff url(../../../assets/svg/down-arrow-svgrepo-com.svg) no-repeat
+  //   right 10px center;
+  border: 1px solid #828c9666;
+  padding: 5px 30px 5px 10px;
+  border-radius: 7px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  color: #666f78;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  background: transparent;
+  z-index: 3;
+  position: relative;
+}
+.custom-select:before {
+  content: url(../../../assets/svg/down-arrow-svgrepo-com.svg);
+  position: absolute;
+  margin: 0px 0px 0 33px;
+  border-left: 1px solid #828c9666;
+  padding: 6px;
+  z-index: 2;
+  background-color: #fbf9fa;
+  border-top-right-radius: 7px;
+  border-bottom-right-radius: 7px;
+}
+.invalid-feedback {
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 18px;
+}
+.date-picker {
+  padding-right: calc(1.5em + 0.75rem);
+  background-image: url(../../../assets/svg/weekly-calendar-tool-for-business-office-svgrepo-com.svg);
+  background-repeat: no-repeat;
+  background-position: right calc(0.375em + 0.1875rem) center;
+  background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+}
+
+input[type="checkbox"] {
+  background: white;
+  transform: scale(1.5);
+}
+
+input[type="checkbox"]:checked {
+  content: url(../../../assets/svg/Checkmark_icon-icons.com_71846.svg);
+  background-size: 12.6px;
+  appearance: none;
+  border: 1px solid;
+  border-radius: 3px;
+  width: 13px;
 }

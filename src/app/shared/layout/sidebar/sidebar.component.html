@@ -1,9 +1,9 @@
-<div class="d-xl-flex flex-column px-3 pt-2 text-white sidebar-wrapper h-100">
+<div class="d-xl-flex flex-column pt-2 text-white sidebar-wrapper h-100">
   <ul class="nav nav-pills flex-column mb-sm-auto mb-0">
-    <li *ngIf="isLoggedIn" ngbDropdown class="nav-item d-xl-none py-1">
+    <li *ngIf="isLoggedIn" ngbDropdown class="nav-item d-xl-none py-1 px-3">
       <button
         type="button"
-        class="btn user-name text-start px-0 w-100"
+        class="btn user-name text-start px-0 w-100 border-0"
         id="dropdownBasic1"
         ngbDropdownToggle
       >
@@ -16,13 +16,13 @@
         <button (click)="logout()" ngbDropdownItem>Выйти</button>
       </div>
     </li>
-    <li class="nav-item py-1">
+    <li class="nav-item py-1 px-3">
       <a class="nav-link align-middle px-0" href="#" role="button">
         <i class="bi bi-person-raised-hand"></i>
         <span class="ms-3">Администрирование</span>
       </a>
     </li>
-    <li class="nav-item py-1">
+    <li class="nav-item py-1 px-3">
       <a class="nav-link align-middle px-0" href="#" role="button">
         <span>СуперАгент <span class="f-300">Банк ВТБ(ПАО)</span> </span>
         <i
@@ -30,7 +30,7 @@
         ></i>
       </a>
     </li>
-    <li class="nav-item py-1">
+    <li class="nav-item py-1 active-tab px-3">
       <a
         class="nav-link align-middle px-0"
         href="#"
@@ -40,7 +40,7 @@
         <span class="ms-3">Управление</span>
       </a>
     </li>
-    <li class="nav-item nav-item-end py-1">
+    <li class="nav-item nav-item-end py-1 px-3">
       <a
         class="nav-link align-middle px-0"
         href="#"
@@ -51,4 +51,5 @@
       </a>
     </li>
   </ul>
+  <span class="d-none d-xl-block project-version mb-3 ms-3">v1.01</span>
 </div>

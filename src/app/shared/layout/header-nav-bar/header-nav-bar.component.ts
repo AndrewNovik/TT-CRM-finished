@@ -9,7 +9,7 @@ import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
   standalone: true,
   imports: [NgbDropdownModule, CommonModule, NgxBootstrapIconsModule],
   templateUrl: './header-nav-bar.component.html',
-  styleUrl: './header-nav-bar.component.css',
+  styleUrl: './header-nav-bar.component.scss',
 })
 export class HeaderNavBarComponent {
   get isLoggedIn() {

@@ -9,7 +9,6 @@ import {
   NgbDateAdapter,
   NgbDateNativeAdapter,
 } from '@ng-bootstrap/ng-bootstrap';
-
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(APP_ROUTES),
@@ -18,7 +17,7 @@ export const appConfig: ApplicationConfig = {
       NgxBootstrapIconsModule.pick(allIcons, {
         width: '1.2em',
         height: '1.2em',
-      }),
+      })
     ),
     importProvidersFrom(ReactiveFormsModule),
     importProvidersFrom(NgbAccordionModule),

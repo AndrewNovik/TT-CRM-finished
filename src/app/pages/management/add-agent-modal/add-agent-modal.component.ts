@@ -14,7 +14,7 @@ import { skipEmptyFilters } from '../../../utils/functions';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './add-agent-modal.component.html',
-  styleUrl: './add-agent-modal.component.css',
+  styleUrl: './add-agent-modal.component.scss',
 })
 export class AddAgentModalComponent implements OnInit {
   @Input() login?: string;

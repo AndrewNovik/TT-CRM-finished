@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './subagents.component.html',
-  styleUrl: './subagents.component.css',
+  styleUrl: './subagents.component.scss',
 })
 export class SubagentsComponent {}

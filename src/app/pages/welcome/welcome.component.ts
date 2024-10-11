@@ -12,7 +12,7 @@ import { initialLoginValue } from './welcome';
   standalone: true,
   imports: [ReactiveFormsModule],
   templateUrl: './welcome.component.html',
-  styleUrl: './welcome.component.css',
+  styleUrl: './welcome.component.scss',
 })
 export class WelcomeComponent implements OnInit {
   form!: UntypedFormGroup;

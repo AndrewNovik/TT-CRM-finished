@@ -7,7 +7,7 @@ import { NgxBootstrapIconsModule } from 'ngx-bootstrap-icons';
   standalone: true,
   imports: [RouterOutlet, NgxBootstrapIconsModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   constructor() {}

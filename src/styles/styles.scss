@@ -1,0 +1,13 @@
+@import 'variables';
+@import 'bootstrap/scss/bootstrap';
+@import 'fonts';
+
+@import '../../node_modules/bootstrap/scss/mixins';
+@import '../../node_modules/bootstrap/scss/functions';
+@import '../../node_modules/bootstrap/scss/variables';
+@import '../../node_modules/bootstrap-icons/font/bootstrap-icons.css';
+
+html,
+body {
+  font-family: "Montserrat" !important;
+}

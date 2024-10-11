@@ -370,28 +370,29 @@
                 class="me-2"
                 #chechboxAll
                 type="checkbox"
-                class="checkbox"
+                class="checkbox me-3"
                 [(ngModel)]="isCheckedAllAgents"
                 (change)="changeCheckBoxAllItems()"
               />Логин</span
             >
-            <span class="col-6 my-3"
+            <span class="col-6 my-3 d-block elipsis pe-2"
               ><input
                 class="me-2"
                 #chechbox
                 type="checkbox"
-                class="checkbox"
+                class="checkbox me-3"
                 (change)="changeCheckBoxTableItem($event, item.id)"
-              />{{ item.login }}</span
+              />
+              {{ item.login }}</span
             >
           </div>
           <div class="d-flex justify-content-between col-12 col-md-6">
             <span class="col-6 my-3 ps-4">E-mail</span>
-            <span class="col-6 my-3">{{ item.email }}</span>
+            <span class="col-6 my-3 elipsis">{{ item.email }}</span>
           </div>
           <div class="d-flex justify-content-between col-12 col-md-6">
             <span class="col-6 my-3 ps-4">Телефон</span>
-            <span class="col-6 my-3">{{ item.phoneNumber }}</span>
+            <span class="col-6 my-3 elipsis">{{ item.phoneNumber }}</span>
           </div>
           <div class="d-flex justify-content-between col-12 col-md-6">
             <span class="col-6 my-3 ps-4">Роль</span>
@@ -399,11 +400,15 @@
           </div>
           <div class="d-flex justify-content-between col-12 col-md-6">
             <span class="col-6 my-3 ps-4">Дата изменения</span>
-            <span class="col-6 my-3">{{ item.editDate }}</span>
+            <span class="col-6 my-3">{{
+              item.editDate | date : "dd.MM.yyyy"
+            }}</span>
           </div>
           <div class="d-flex justify-content-between col-12 col-md-6">
             <span class="col-6 my-3 ps-4">Дата создания</span>
-            <span class="col-6 my-3">{{ item.creationDate }}</span>
+            <span class="col-6 my-3">{{
+              item.creationDate | date : "dd.MM.yyyy"
+            }}</span>
           </div>
           <div class="d-flex justify-content-between col-12 col-md-6">
             <span class="col-6 my-3 ps-4">Статус</span>

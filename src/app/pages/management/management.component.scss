@@ -82,7 +82,7 @@ ngb-pagination ::ng-deep ul > li.active > a {
   > span:first-child {
     font-size: 14px;
     font-weight: 700;
-    line-height: 18px;
+    line-height: 20px;
     text-align: left;
     color: #282828;
   }
@@ -90,7 +90,7 @@ ngb-pagination ::ng-deep ul > li.active > a {
   > span:last-child {
     font-size: 14px;
     font-weight: 300;
-    line-height: 18px;
+    line-height: 20px;
     text-align: left;
   }
 }
@@ -165,7 +165,7 @@ label {
   position: absolute;
   margin: 0px 0px 0 33px;
   border-left: 1px solid #828c9666;
-  padding: 6px;
+  padding: 6px 6px 5px 6px;
   z-index: 2;
   background-color: #fbf9fa;
   border-top-right-radius: 7px;
@@ -186,7 +186,8 @@ label {
 
 input[type="checkbox"] {
   background: white;
-  transform: scale(1.5);
+  transform: scale(1.3);
+  margin-left: 4px;
 }
 
 input[type="checkbox"]:checked {
@@ -196,4 +197,10 @@ input[type="checkbox"]:checked {
   border: 1px solid;
   border-radius: 3px;
   width: 13px;
+}
+
+.elipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
 }

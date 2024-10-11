@@ -54,8 +54,8 @@ export const filtersInitialState = {
 export const exampleData: DataItem[] = [
   {
     id: 1,
-    login: 'Vadim1',
-    email: 'vadimEmail@gmail.com',
+    login: 'SuperLongLogin1234132431245132Vadim1',
+    email: 'SuperLongLoginSuperLongLoginSuperLongLoginvadimEmail@gmail.com',
     phoneNumber: '+79221110500',
     role: 'Пользователь',
     editDate: 1696832484000,

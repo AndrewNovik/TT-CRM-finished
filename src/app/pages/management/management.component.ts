@@ -9,15 +9,7 @@ import {
   ViewChild,
   ViewChildren,
 } from '@angular/core';
-import {
-  BehaviorSubject,
-  debounceTime,
-  finalize,
-  mergeMap,
-  Observable,
-  of,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, debounceTime, Observable, of, take } from 'rxjs';
 import { ApiDataService } from '../../services/api-data.service';
 import { BaseList } from '../../interfaces/main-interfaces-list';
 import {
@@ -67,7 +59,8 @@ const apiRoute = 'http://cars.cprogroup.ru/api/rubetek/angular-testcase-list/';
 })
 export class ManagementComponent implements OnInit {
   @ViewChildren('chechbox')
-  readonly chechboxlements: QueryList<ElementRef<HTMLInputElement>> = new QueryList();
+  readonly chechboxlements: QueryList<ElementRef<HTMLInputElement>> =
+    new QueryList();
 
   @ViewChild('chechboxAll')
   readonly chechboxAll?: ElementRef<HTMLInputElement>;
@@ -95,7 +88,7 @@ export class ManagementComponent implements OnInit {
 
   apiData$ = this.apiDataSubject.asObservable();
 
-  showLoader$: Observable<boolean> = of(true);
+  showLoader$: Observable<boolean> = this.apiDataService.showLoader$;
   destroyRef = inject(DestroyRef);
 
   constructor(
@@ -126,25 +119,17 @@ export class ManagementComponent implements OnInit {
     this.router.navigate(['/main-page']);
   }
 
-  getApiData(
-    page: number = this.page - 1,
-    pageSize: number = this.pageSize,
-    payload?: any
-  ): Observable<BaseList<DataItem>> {
-    this.showLoader$ = of(true);
+  getApiData(): Observable<BaseList<DataItem>> {
     return this.apiDataService
-      .requestGet<BaseList<DataItem>>(apiRoute, { page, pageSize, ...payload })
-      .pipe(
-        takeUntilDestroyed(this.destroyRef),
-        finalize(() => (this.showLoader$ = of(false)))
-      );
+      .requestGet<BaseList<DataItem>>(apiRoute)
+      .pipe(takeUntilDestroyed(this.destroyRef));
   }
 
   getApiDataSubs(): void {
     this.getApiData().subscribe((res) => {
       this.originalAgentsList = res;
 
-      this.collectionSize = this.originalAgentsList.total;
+      this.collectionSize = res.total;
 
       this.sortedListToShow = [
         ...this.originalAgentsList.list.slice(
@@ -152,13 +137,17 @@ export class ManagementComponent implements OnInit {
           (this.page - 1) * this.pageSize + this.pageSize
         ),
       ];
+      this.showLoader$ = of(false);
     });
   }
 
   subscribeOnFiltersChange() {
     this.form
       .get([ManagementFormKey.login])
-      ?.valueChanges.pipe(takeUntilDestroyed(this.destroyRef), debounceTime(900))
+      ?.valueChanges.pipe(
+        takeUntilDestroyed(this.destroyRef),
+        debounceTime(900)
+      )
       .subscribe(() => this.onFilter());
   }
 
@@ -176,11 +165,14 @@ export class ManagementComponent implements OnInit {
     modalRef.result
       .then((result) => {
         if (result) {
-          this.apiDataService.requestPost<AddAgentForm>(apiRoute, result).pipe(
-            takeUntilDestroyed(this.destroyRef),
-            mergeMap((_) => this.getApiData(this.page - 1, this.pageSize)),
-            tap(() => this.onFilter)
-          );
+          this.apiDataService
+            .requestPost<AddAgentForm>(apiRoute, result)
+            .pipe(take(1))
+            .subscribe((res) => {
+              if (res === true) {
+                this.getApiDataSubs();
+              }
+            });
         }
       })
       .catch(() => {});

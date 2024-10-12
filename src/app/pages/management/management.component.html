@@ -328,8 +328,12 @@
                 (change)="changeCheckBoxTableItem($event, item.id)"
               />
             </th>
-            <th scope="col">{{ item.login }}</th>
-            <th scope="col">{{ item.email }}</th>
+            <th scope="col">
+              <span class="d-block elipsis"> {{ item.login }}</span>
+            </th>
+            <th scope="col">
+              <span class="d-block elipsis">{{ item.email }}</span>
+            </th>
             <th scope="col">{{ item.phoneNumber }}</th>
             <th scope="col">{{ item.role }}</th>
             <th scope="col">{{ item.editDate | date : "dd.MM.yyyy" }}</th>

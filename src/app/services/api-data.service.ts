@@ -15,14 +15,16 @@ export class ApiDataService {
   list = exampleData;
   constructor(private http: HttpClient) {}
 
+  showLoader$: Observable<boolean> = of(true);
+
   requestGet<T>(
     apiRoute: string,
-    payload?: any,
+    payload?: any
   ): Observable<BaseList<DataItem>> {
     return of({ list: this.list, total: this.list.length });
   }
 
-  requestPost<T>(apiRoute: string, payload: AddAgentForm): Observable<T> {
+  requestPost<T>(apiRoute: string, payload: AddAgentForm): Observable<boolean> {
     this.list.push({
       id: this.list.length + 1,
       login: payload.login,
@@ -34,6 +36,7 @@ export class ApiDataService {
       status: payload.status,
       isHaveEP: payload.isHaveEP,
     });
-    return of(true as T);
+
+    return of(true);
   }
 }

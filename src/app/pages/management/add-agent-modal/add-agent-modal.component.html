@@ -5,7 +5,7 @@
       <div class="form-wrapper my-4 p-3">
         <form [formGroup]="form" (ngSubmit)="createAgent()">
           <div class="input-group mb-2 mr-sm-2">
-            <label class="sr-only" for="login">Login</label>
+            <label class="sr-only" for="login">наименование</label>
             <input
               class="m-2 form-control"
               formControlName="login"
@@ -15,7 +15,7 @@
           </div>
 
           <div class="input-group mb-2 mr-sm-2">
-            <label class="sr-only" for="phone">Phone</label>
+            <label class="sr-only" for="phone">Диоптрии</label>
             <input
               class="m-2 form-control"
               formControlName="phone"
@@ -24,7 +24,7 @@
             />
           </div>
 
-          <div class="input-group mb-2 mr-sm-2">
+          <!-- <div class="input-group mb-2 mr-sm-2">
             <label class="sr-only" for="eMail">eMail</label>
             <input
               class="m-2 form-control"
@@ -32,10 +32,10 @@
               id="eMail"
               type="text"
             />
-          </div>
+          </div> -->
 
           <div class="input-group mb-2 mr-sm-2">
-            <label class="sr-only" for="role">role</label>
+            <label class="sr-only" for="role">Поставщик</label>
             <input
               class="m-2 form-control"
               formControlName="role"
@@ -45,7 +45,7 @@
           </div>
 
           <div class="input-group mb-2 mr-sm-2">
-            <label class="sr-only" for="status">status</label>
+            <label class="sr-only" for="status">Наличие</label>
             <input
               class="m-2 form-control"
               formControlName="status"
@@ -55,7 +55,7 @@
           </div>
 
           <div class="input-group mb-2 mr-sm-2">
-            <label class="sr-only" for="isHaveEP">isHaveEP</label>
+            <label class="sr-only" for="isHaveEP">Бронь</label>
             <input
               class="m-2 form-control"
               formControlName="isHaveEP"

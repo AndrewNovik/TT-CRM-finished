@@ -72,7 +72,6 @@ export class ManagementComponent implements OnInit {
   form!: UntypedFormGroup;
   originalAgentsList: BaseList<DataItem> = { list: [], total: 0 };
   sortedAgentsList: BaseList<DataItem> = { list: [], total: 0 };
-  sortedListToShow: DataItem[] = [];
   checkedAgentsList: number[] = [];
   isCheckedAllAgents: boolean = false;
   statuses = Object.values(Statuses);
@@ -91,6 +90,10 @@ export class ManagementComponent implements OnInit {
   showLoader$: Observable<boolean> = this.apiDataService.showLoader$;
   destroyRef = inject(DestroyRef);
 
+  get sortedListToShow(): DataItem[] {
+    return this.sortedAgentsList.list;
+  }
+
   constructor(
     private apiDataService: ApiDataService,
     private fb: UntypedFormBuilder,
@@ -105,7 +108,7 @@ export class ManagementComponent implements OnInit {
       ?.setValidators(Validators.pattern(/^[a-zA-Z0-9_-]{2,16}$/));
     this.form
       .get([ManagementFormKey.phoneNumber])
-      ?.setValidators(Validators.pattern(/^[0-9_-]{2,16}$/));
+      ?.setValidators(Validators.pattern(/^[0-9_-]{2,5}$/));
     this.form
       .get([ManagementFormKey.eMail])
       ?.setValidators(
@@ -131,12 +134,11 @@ export class ManagementComponent implements OnInit {
 
       this.collectionSize = res.total;
 
-      this.sortedListToShow = [
-        ...this.originalAgentsList.list.slice(
-          (this.page - 1) * this.pageSize,
-          (this.page - 1) * this.pageSize + this.pageSize
-        ),
-      ];
+      this.sortedAgentsList.list = this.originalAgentsList.list.slice(
+        (this.page - 1) * this.pageSize,
+        (this.page - 1) * this.pageSize + this.pageSize
+      );
+
       this.showLoader$ = of(false);
     });
   }
@@ -220,12 +222,11 @@ export class ManagementComponent implements OnInit {
     );
 
     this.collectionSize = this.sortedAgentsList.list.length;
-    this.sortedListToShow = [
-      ...this.sortedAgentsList.list.slice(
-        (page - 1) * this.pageSize,
-        (page - 1) * this.pageSize + this.pageSize
-      ),
-    ];
+
+    this.sortedAgentsList.list.slice(
+      (page - 1) * this.pageSize,
+      (page - 1) * this.pageSize + this.pageSize
+    );
   }
 
   onCancel() {
@@ -240,12 +241,12 @@ export class ManagementComponent implements OnInit {
   enableAgents() {
     this.isCheckedAllAgents
       ? this.sortedAgentsList.list.map((agent) => {
-          agent.status = 'Активен';
+          agent.status = Statuses.active;
         })
       : this.checkedAgentsList.forEach((id) => {
           this.sortedAgentsList.list.map((agent) => {
             if (agent.id === id) {
-              agent.status = 'Активен';
+              agent.status = Statuses.active;
             }
           });
         });
@@ -254,12 +255,12 @@ export class ManagementComponent implements OnInit {
   disableAgents() {
     this.isCheckedAllAgents
       ? this.sortedAgentsList.list.map((agent) => {
-          agent.status = 'Заблокирован';
+          agent.status = Statuses.disabled;
         })
       : this.checkedAgentsList.forEach((id) => {
           this.sortedAgentsList.list.map((agent) => {
             if (agent.id === id) {
-              agent.status = 'Заблокирован';
+              agent.status = Statuses.disabled;
             }
           });
         });
